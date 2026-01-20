@@ -1,65 +1,39 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <div>
+      <h1>ANONINBOX</h1>
+      <h2>Get honest advice with anonymous message box</h2>
+
+      <h3>Anoninbox itu apaan sih?</h3>
+      <p>
+        Anoninbox itu aplikasi web supaya kamu bisa saling berkirim pesan
+        dengan orang lain secara anonim. 
+      </p>
+
+      <h3>Emang kenapa harus anonim?</h3>
+      <p>
+        Dengan pesan anonim kamu bisa mendapatkan saran dan nasihat yang paling relevan untuk perbaikan diri kamu.
+        Teman yang ngirim pesan ke kamu juga nggak akan segan untuk ngasih masukan yg paling jujur.
+        Kamu bahkan bisa memberi balasan kepada mereka tanpa tahu identitasnya.
+        Bahkan kami tak tahu pesan kalian, rahasia dijamin!
+      </p>
+
+      <h3>Aplikasi ini cocok untuk siapa?</h3>
+      <p>
+        Anoninbox cocok untuk siapapun, untuk pribadi maupun profesional.
+        Sebagai pribadi, kamu bisa mendapat nasihat dan saran yg jujur dari teman-teman kamu.
+        Untuk profesional, aplikasi ini juga cocok kalau kamu berada di organisasi atau pekerjaan untuk mendapat saran perbaikan untuk hasil kerja yg lebih baik.
+        Anggap aplikasi ini semacam kotak saran yg tersedia dalam bentuk digital.
+      </p>
+
+      <h3>Cara pakenya gimana?</h3>
+      <p>Gampang banget kok,</p>
+        <ol>
+          <li>Buat kotak pesan baru dengan deskripsi sesuai tujuan.</li>
+          <li>Bagikan tautan kotak pesan ke orang-orang yg kamu ingin dapat saran dari mereka.</li>
+          <li>Orang yg mendapat tautan bisa menulis pesan dengan bebas tanpa takut ketahuan identitas asli mereka.</li>
+          <li>Tunggu pesan masuk, akan ada notifikasi via email. Kamu juga bisa lanjut berbalas pesan secara anonim.</li>
+        </ol>
+    </div> 
   );
 }
