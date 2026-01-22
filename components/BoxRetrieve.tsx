@@ -1,11 +1,11 @@
 "use client"
 import { dashboardFetcher } from "@/lib/Fetcher"
 import useSWR from "swr"
-import { Box } from "@/app/schemas/schema"
+import { BoxSchema } from "@/app/schemas/schema"
 
 
 export default function BoxDetail({id,}:{id: number}){
-    const {data, error, isLoading} = useSWR<Box>(`/api/box/${id}`, dashboardFetcher)
+    const {data, error, isLoading} = useSWR<BoxSchema>(`/api/box/${id}`, dashboardFetcher)
 
     if (error) return <div>{error.message}</div>
     if (isLoading) return <div>Memuat...</div>

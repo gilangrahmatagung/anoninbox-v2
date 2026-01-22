@@ -1,28 +1,53 @@
-// import React, { useState } from "react"
+"use client"
+import { postFetcher } from "@/lib/Fetcher"
+import React, { useState, Activity } from "react"
+import useSWRMutation from "swr/mutation"
+import { BoxCreateSchema } from "@/app/schemas/schema"
 
 
-// export default function BoxCreate(){
-//     const[title, setTitle] = useState(undefined)
-//     const[description, setDescription] = useState(undefined)
-//     const[errMsg, setErrMsg] = useState("")
+export default function BoxCreate(){
+    // Toggle show/hidden
+    const[isVisible, setIsVisible] = useState(false)
 
-//     async function createBox(e: React.FormEvent){
-//         e.preventDefault()
+    // Form post
+    const[title, setTitle] = useState("")
+    const[description, setDescription] = useState("")
 
-//         try{
-//             const response = await fetch("http://localhost:8000/ipa/api/box/", {
-//                 method: "POST",
+    const {trigger, isMutating, error} = useSWRMutation("/api/box/", postFetcher)
 
-//             })
-//         }
-//     }
+    async function createBoxSubmit(e: React.FormEvent){
+        e.preventDefault()
 
-//     return (
-//         <>
-//             <h1>Buat Box Baru</h1>
-//             <form action="">
+        const boxData: BoxCreateSchema = {
+            box_title: title,
+            box_description: description
+        }
 
-//             </form>
-//         </>
-//     )
-// }
+        await trigger(boxData)
+
+        setTitle("")
+        setDescription("")
+    }
+
+    return (
+        <>
+            <button onClick={()=>setIsVisible(!isVisible)}>
+                {isVisible?"Tutup":"Buat Box Baru"}
+            </button>
+            
+            <Activity mode={isVisible?'visible':'hidden'}>
+                <form onSubmit={createBoxSubmit}>
+                    <input type="text" name="title" placeholder="Judul" 
+                    value={title} onChange={e=>setTitle(e.target.value)} />
+                    <input type="text" name="description" placeholder="Deskripsi"
+                    value={description} onChange={e=>setDescription(e.target.value)} />
+                    
+                    <button type="submit">
+                        {isMutating? "Menyimpan...":"Buat Box"}
+                    </button>
+                    {error && (<div>{error.message}</div>)}
+                </form>
+            </Activity>
+        </>
+    )
+}

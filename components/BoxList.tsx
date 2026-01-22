@@ -1,7 +1,7 @@
 "use client"
 import { dashboardFetcher } from "@/lib/Fetcher"
 import useSWR from "swr"
-import { Box } from "@/app/schemas/schema" 
+import { BoxSchema } from "@/app/schemas/schema" 
 import Link from "next/link"
 
 
@@ -13,7 +13,7 @@ export default function BoxList(){
 
     return (
         <ul>
-            {data && data.map((box: Box) => ( // .map berarti milik array
+            {data && data.map((box: BoxSchema) => ( // .map berarti milik array
                 <li key={box.id}>
                     <Link href={`/dashboard/box/${box.id}`}>
                         <h2>{box.box_title}</h2>
