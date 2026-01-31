@@ -6,7 +6,7 @@ import Link from "next/link"
 
 
 export default function BoxList(){
-    const {data, error, isLoading} = useSWR("/api/box/", dashboardFetcher)
+    const {data, error, isLoading} = useSWR("/api/boxes/", dashboardFetcher)
 
     if (error) return <div>{error.message}</div>
     if (isLoading) return <div>Memuat...</div>

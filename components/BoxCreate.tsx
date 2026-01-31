@@ -13,7 +13,7 @@ export default function BoxCreate(){
     const[title, setTitle] = useState("")
     const[description, setDescription] = useState("")
 
-    const {trigger, isMutating, error} = useSWRMutation("/api/box/", postFetcher)
+    const {trigger, isMutating, error} = useSWRMutation("/api/boxes/", postFetcher)
 
     async function createBoxSubmit(e: React.FormEvent){
         e.preventDefault()

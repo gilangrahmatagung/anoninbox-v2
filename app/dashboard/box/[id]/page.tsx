@@ -1,4 +1,5 @@
-import BoxDetail from "@/components/BoxRetrieve";
+import BoxRetrieve from "@/components/BoxRetrieve";
+import ThreadAndMessages from "@/components/ThreadAndMessages";
 
 
 export default async function BoxPage({ params }: { params: { id: number } }) { // props otomatis dari route
@@ -6,7 +7,11 @@ export default async function BoxPage({ params }: { params: { id: number } }) { 
     return (
         <>
             <h1>Messages Inbox</h1>
-            <BoxDetail id={id} />
+            <p>Detail Box:</p>
+            <BoxRetrieve box_id={id} />
+            <hr />
+            <p>Pesan yang masuk:</p>
+            <ThreadAndMessages box_id={id} />
         </>
     )
 }

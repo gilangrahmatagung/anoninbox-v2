@@ -2,6 +2,7 @@
 import { ErrMsg } from "@/lib/CommonMessage";
 import { useState } from "react";
 import { getCookie } from "cookies-next";
+import { baseUrl } from "@/app/schemas/schema";
 
 
 export default function LoginPage() {
@@ -14,7 +15,7 @@ export default function LoginPage() {
 
         try {
             const csrfToken: string = await getCookie("csrftoken") || ""
-            const response = await fetch("http://localhost:8000/ipa/users/login/", {
+            const response = await fetch(`${baseUrl}/users/login/`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",

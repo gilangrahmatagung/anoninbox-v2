@@ -1,3 +1,4 @@
+import { baseUrl } from "@/app/schemas/schema"
 import { ErrMsg } from "./CommonMessage"
 import { getCookie } from "cookies-next/client"
 
@@ -8,7 +9,7 @@ export const dashboardFetcher = async (url: string) => {
     let response: Response
 
     try {
-        response = await fetch(`http://localhost:8000/ipa${url}`, {
+        response = await fetch(`${baseUrl}${url}`, {
             credentials: "include"
         })
     } catch (err) {
@@ -19,13 +20,15 @@ export const dashboardFetcher = async (url: string) => {
     }
 
     if (!response.ok) {
+        console.log("ERROR REQUEST: ")
+        console.log(response)
         const error: errorFetcher = new Error()
         error.message = ErrMsg.ClientError
 
         throw error
     }
 
-    return response.json()
+    return await response.json()
 
 }
 
@@ -34,7 +37,7 @@ export const postFetcher = async (url: string, { arg }: { arg: object }) => {
 
     try {
         const csrfToken: string = await getCookie("csrftoken") || ""
-        response = await fetch(`http://localhost:8000/ipa${url}`, {
+        response = await fetch(`${baseUrl}${url}`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -51,6 +54,8 @@ export const postFetcher = async (url: string, { arg }: { arg: object }) => {
     }
 
     if (!response.ok) {
+        console.log("ERROR REQUEST: ")
+        console.log(response)
         const error: errorFetcher = new Error()
         error.message = ErrMsg.ClientError
 
