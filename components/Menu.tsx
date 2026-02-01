@@ -1,15 +1,30 @@
+import Logout from "@/app/users/Logout"
 import Link from "next/link"
+import { cookies } from "next/headers"
 
-export const Menu = ()=>{
 
+export const Menu = async ()=>{
+    const cookieStore = await cookies()
+    const isAuthenticated = cookieStore.has('sessionid')
+    console.log("IS AUTH?")
+    console.log(isAuthenticated)
 
     return (
         <nav>
             <Link href="/">Home</Link>
             <Link href="/about">About</Link>
-            <Link href="/dashboard">Dashboard</Link>
+
+            { isAuthenticated? (
+                <>
+                    <Link href="/dashboard">Dashboard</Link>
+                    <Logout />
+                </>
+            ) : (
+                <Link href="/users/login">
+                    <button>Login App</button>
+                </Link>
+            )}
             
-            <Link href="/users/login">Login</Link>
         </nav>
     )
 }
