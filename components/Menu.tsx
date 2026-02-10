@@ -1,30 +1,35 @@
+"use client"
 import Logout from "@/app/users/Logout"
 import Link from "next/link"
-import { cookies } from "next/headers"
+import { useState } from "react"
 
 
-export const Menu = async ()=>{
-    const cookieStore = await cookies()
-    const isAuthenticated = cookieStore.has('sessionid')
-    console.log("IS AUTH?")
-    console.log(isAuthenticated)
+export const Menu = ({isAuthenticated}:{isAuthenticated: boolean})=>{
+    const [showMenu, setShowMenu] = useState(false)
+    console.log(isAuthenticated?"Otentik":"Belum")
 
     return (
-        <nav>
-            <Link href="/">Home</Link>
-            <Link href="/about">About</Link>
+        <>
+            <button onClick={()=>{setShowMenu(!showMenu)}}>
+                {showMenu? "Tutup menu":"Menu"}
+            </button>
+            {showMenu && (
+                <nav>
+                    <Link href="/">Home</Link>
+                    <Link href="/about">About</Link>
 
-            { isAuthenticated? (
-                <>
-                    <Link href="/dashboard">Dashboard</Link>
-                    <Logout />
-                </>
-            ) : (
-                <Link href="/users/login">
-                    <button>Login App</button>
-                </Link>
+                    { isAuthenticated? (
+                        <>
+                            <Link href="/dashboard">Dashboard</Link>
+                            <Logout />
+                        </>
+                    ) : (
+                        <Link href="/users/login">
+                            <button>Login App</button>
+                        </Link>
+                    )}
+                </nav>
             )}
-            
-        </nav>
+        </>
     )
 }

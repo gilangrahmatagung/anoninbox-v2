@@ -3,6 +3,7 @@ import { ErrMsg } from "@/lib/CommonMessage";
 import { useState } from "react";
 import { getCookie } from "cookies-next";
 import { baseUrl } from "@/app/schemas/schema";
+import Link from "next/link";
 
 
 export default function LoginPage() {
@@ -29,7 +30,9 @@ export default function LoginPage() {
             if (response.ok) {
                 window.location.href = "/dashboard"
             }
-            setErrMsg("Email atau password yang Anda masukkan salah. Silakan coba lagi.")
+            else{
+                setErrMsg("Email atau password yang Anda masukkan salah. Silakan coba lagi.")
+            }
         }
         catch (error) {
             setErrMsg(ErrMsg.ServerError)
@@ -38,11 +41,13 @@ export default function LoginPage() {
 
     return (
         <form onSubmit={loginSubmit}>
-            <input type="email" name="email" placeholder="Email"
+            <input type="email" name="email" placeholder="Email" required
                 value={email} onChange={e => setEmail(e.target.value)} />
-            <input type="password" name="password" placeholder="Sandi"
+            <input type="password" name="password" placeholder="Sandi" required
                 value={password} onChange={e => setPassword(e.target.value)} />
             <button type="submit">Masuk</button>
+            <p>Belum punya akun? <Link href={"/users/register"}>Mendaftar akun baru</Link></p>
+            <p>Lupa sandi? <Link href={"/users/password-reset"}>Atur ulang sandi</Link></p>
 
             {errMsg && (<div>{errMsg}</div>)}
         </form>

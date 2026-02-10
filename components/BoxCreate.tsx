@@ -13,6 +13,8 @@ export default function BoxCreate(){
     const[title, setTitle] = useState("")
     const[description, setDescription] = useState("")
 
+    const[succMsg, setSuccMsg] = useState("")
+
     const {trigger, isMutating, error} = useSWRMutation("/api/boxes/", postFetcher)
 
     async function createBoxSubmit(e: React.FormEvent){
@@ -27,6 +29,8 @@ export default function BoxCreate(){
 
         setTitle("")
         setDescription("")
+
+        setSuccMsg("Kotak baru telah dibuat.")
     }
 
     return (
@@ -37,7 +41,7 @@ export default function BoxCreate(){
             
             <Activity mode={isVisible?'visible':'hidden'}>
                 <form onSubmit={createBoxSubmit}>
-                    <input type="text" name="title" placeholder="Judul" 
+                    <input type="text" name="title" placeholder="Judul" required
                     value={title} onChange={e=>setTitle(e.target.value)} />
                     <input type="text" name="description" placeholder="Deskripsi"
                     value={description} onChange={e=>setDescription(e.target.value)} />
@@ -45,6 +49,7 @@ export default function BoxCreate(){
                     <button type="submit">
                         {isMutating? "Menyimpan...":"Buat Box"}
                     </button>
+                    {succMsg && (<div>{succMsg}</div>)}
                     {error && (<div>{error.message}</div>)}
                 </form>
             </Activity>

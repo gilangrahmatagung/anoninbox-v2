@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import MenuWithAuth from "@/components/MenuWithAuth";
 
-import { Menu } from "@/components/Menu";
 
 export const metadata: Metadata = {
   title: "AnonInbox",
@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <header>
-          <Menu />
+          <MenuWithAuth />
         </header>
         {children}
       </body>

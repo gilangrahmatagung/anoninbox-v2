@@ -17,7 +17,7 @@ export default async function ToBox({box_id,}:{box_id: number}){
             )
         }
 
-        return (<p>{ErrMsg.ClientError}</p>)
+        return (<p>Box tidak ditemukan</p>)
     }
 
     catch(err){

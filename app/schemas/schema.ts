@@ -1,3 +1,7 @@
+export type ProfilContextSchema = {
+    email: string
+}
+
 export type BoxSchema = {
     id: number
     box_maker: number
@@ -17,12 +21,13 @@ export type MessageSchema = {
     thread: number
     message_title: string
     message_body: string
+    is_author_box_maker: boolean
     created_at: string
     updated_at: string
 }
 
 export type MessageCreateSchema = {
-    message_title: string
+    message_title?: string
     message_body: string
 }
 
@@ -34,4 +39,17 @@ export type ThreadAndMessagesSchema = {
     messages: MessageSchema[]
 }
 
+export type UserSchema = {
+    email: string
+    password: string
+}
+
+export type ThreadCreateSchema = {
+    non_user_email?: string
+    
+    message_title?: string
+    message_body: string
+}
+
 export const baseUrl: string = "http://localhost:8000/ipa"
+export const originWeb: string = "http://localhost:3000"
