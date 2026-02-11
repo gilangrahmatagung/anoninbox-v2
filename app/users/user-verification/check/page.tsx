@@ -9,8 +9,6 @@ import { useEffect, useState } from 'react'
 export default function CheckUserVerificationPage() {
     const tokenParam = useSearchParams().get("token")
     const emailParam = useSearchParams().get("email")
-    console.log(tokenParam)
-    console.log(emailParam)
     
     const [succMsg, setSuccMsg] = useState("")
     const [errMsg, setErrMsg] = useState("")

@@ -2,6 +2,8 @@
 - fitur bagikan box v
 - hassession bermasalah v
 
+- mencegah start thread dua kali
+
 - id box terlalu mudah dicari, bisa backend yg ubah bisa cm salting di url page nya
 - display loading yg ngga pakai useSWR
 - Harap isi bidang ini required html dihias

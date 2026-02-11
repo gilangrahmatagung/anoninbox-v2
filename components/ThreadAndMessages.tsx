@@ -2,6 +2,7 @@
 import { ThreadAndMessagesSchema, MessageSchema } from "@/app/schemas/schema"
 import { dashboardFetcher } from "@/lib/Fetcher"
 import useSWR from "swr"
+import SendMessage from "./SendMessage"
 
 
 export default function ThreadAndMessages({box_id,}:{box_id: number}){
@@ -22,6 +23,7 @@ export default function ThreadAndMessages({box_id,}:{box_id: number}){
                             </li>
                         ))}
                     </ul>
+                    <SendMessage box_id={box_id} thread_id={thread.id} />
                 </li>
             ))}
         </ul>

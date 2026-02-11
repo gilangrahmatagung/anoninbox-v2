@@ -1,18 +1,20 @@
 "use client"
 import { postFetcher } from "@/lib/Fetcher"
-import React, { useState } from "react"
+import React, { Activity, useState } from "react"
 import useSWRMutation from "swr/mutation"
-import { baseUrl, MessageCreateSchema } from "@/app/schemas/schema"
+import { MessageCreateSchema } from "@/app/schemas/schema"
+import { mutate } from "swr"
 
 
 export default function SendMessage({box_id, thread_id}:{box_id: number, thread_id: number}){
+    const[isVisible, setIsVisible] = useState(false)
     // Form post
     const[title, setTitle] = useState("")
     const[body, setBody] = useState("")
 
     const [succMsg, setSuccMsg] = useState("")
 
-    const {trigger, isMutating, error} = useSWRMutation(`/api/boxes/${box_id}/threads/${thread_id}`, postFetcher)
+    const {trigger, isMutating, error} = useSWRMutation(`/api/boxes/${box_id}/threads/${thread_id}/`, postFetcher)
 
     async function sendMessageSubmit(e: React.FormEvent){
         e.preventDefault()
@@ -25,28 +27,40 @@ export default function SendMessage({box_id, thread_id}:{box_id: number, thread_
         // sedikit validasi
         if (title===""){delete messageData.message_title}
 
-        await trigger(messageData)
+        try { // perlu di try utk nunggu await selesai baru mutate
+            await trigger(messageData)
 
-        setTitle("")
-        setBody("")
+            await mutate(`/api/boxes/${box_id}/threads-with-sender/`)
+            await mutate(`/api/boxes/${box_id}/threads/`)      
 
-        setSuccMsg("Pesan telah dikirim.")
+            setTitle("")
+            setBody("")
+
+            setSuccMsg("Pesan telah dikirim.")
+        }
+        catch{}
     }
 
     return (
         <>
-            <form onSubmit={sendMessageSubmit}>
-                <input type="text" name="title" placeholder="Judul (Opsional)" 
-                value={title} onChange={e=>setTitle(e.target.value)} />
-                <input type="text" name="body" placeholder="Pesan" required
-                value={body} onChange={e=>setBody(e.target.value)} />
-                
-                <button type="submit">
-                    {isMutating? "Menyimpan...":"Kirim Pesan"}
-                </button>
-                {error && (<div>{error.message}</div>)}
-                {succMsg && (<div>{succMsg}</div>)}
-            </form>
+            <button onClick={()=>setIsVisible(!isVisible)}>
+                {isVisible?"Tutup":"Balas Pesan"}
+            </button>
+
+            <Activity mode={isVisible?'visible':'hidden'}>
+                <form onSubmit={sendMessageSubmit}>
+                    <input type="text" name="title" placeholder="Judul (Opsional)" 
+                    value={title} onChange={e=>setTitle(e.target.value)} />
+                    <input type="text" name="body" placeholder="Pesan" required
+                    value={body} onChange={e=>setBody(e.target.value)} />
+                    
+                    <button type="submit">
+                        {isMutating? "Menyimpan...":"Kirim Pesan"}
+                    </button>
+                    {error && (<div>{error.message}</div>)}
+                    {succMsg && (<div>{succMsg}</div>)}
+                </form>
+            </Activity>
         </>
     )
 }

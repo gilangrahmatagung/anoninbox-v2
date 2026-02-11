@@ -6,7 +6,6 @@ import { useState } from "react"
 
 export const Menu = ({isAuthenticated}:{isAuthenticated: boolean})=>{
     const [showMenu, setShowMenu] = useState(false)
-    console.log(isAuthenticated?"Otentik":"Belum")
 
     return (
         <>

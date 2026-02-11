@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import useSWRMutation from "swr/mutation";
 
 
-export default function StartThread({box_id,}:{box_id: number}){
+export default function StartThread({box_id, isAuthenticated}:{box_id: number, isAuthenticated: boolean}){
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
     const [email, setEmail] = useState("")
@@ -40,8 +40,12 @@ export default function StartThread({box_id,}:{box_id: number}){
         <form onSubmit={startThreadSubmit}>
             <input type="text" name="title" placeholder="Judul (opsional)"
             value={title} onChange={e=>setTitle(e.target.value)} />
-            <input type="email" name="email" placeholder="Email (opsional)" 
-            value={email} onChange={e=>setEmail(e.target.value)} />
+            
+            {!isAuthenticated&&(
+                <input type="email" name="email" placeholder="Email (opsional)" 
+                value={email} onChange={e=>setEmail(e.target.value)} />
+            )}
+            
             <input type="text" name="body" placeholder="Pesan" required
             value={body} onChange={e=>setBody(e.target.value)} />
 
