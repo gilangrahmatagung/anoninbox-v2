@@ -9,7 +9,7 @@ const ProfilContext = createContext<ProfilContextSchema>({email: ""})
 export default function Profil(){
     return (
         <ProfilContext.Provider value={{email:""}}>
-            <Menu />
+            <Menu isAuthenticated={false} />
             <LoginPage />
         </ProfilContext.Provider>
     )

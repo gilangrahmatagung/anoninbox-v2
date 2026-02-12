@@ -1,26 +1,30 @@
-import { ErrMsg } from "@/lib/CommonMessage"
-import { baseUrl, BoxSchema } from "@/app/schemas/schema"
+import { ErrMsg } from "@/lib/CommonMessage";
+import { baseUrl, BoxSchema } from "@/app/schemas/schema";
+import Card from "@/components/ui/Card";
 
+export default async function ToBox({ box_id }: { box_id: number }) {
+  try {
+    const response = await fetch(`${baseUrl}/api/boxes/${box_id}`);
 
-export default async function ToBox({box_id,}:{box_id: number}){
-    try {
-        const response = await fetch(`${baseUrl}/api/boxes/${box_id}`)
-        
-        if (response.ok){
-            const responseData: BoxSchema = await response.json()
+    if (response.ok) {
+      const responseData: BoxSchema = await response.json();
 
-            return (
-                <div>
-                    <h2>{responseData.box_title}</h2>
-                    <p>{responseData.box_description}</p>
-                </div>
-            )
-        }
-
-        return (<p>Box tidak ditemukan</p>)
+      return (
+        <Card className="space-y-1">
+          <h3 className="text-lg font-semibold text-yellow-400">
+            {responseData.box_title}
+          </h3>
+          <p className="text-neutral-300 text-sm">
+            {responseData.box_description}
+          </p>
+        </Card>
+      );
     }
 
-    catch(err){
-        return(<p>{ErrMsg.ServerError}</p>)
-    }
+    return (
+      <p className="text-red-300 text-sm">Box tidak ditemukan</p>
+    );
+  } catch (err) {
+    return <p className="text-red-300 text-sm">{ErrMsg.ServerError}</p>;
+  }
 }
