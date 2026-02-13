@@ -51,5 +51,5 @@ export type ThreadCreateSchema = {
     message_body: string
 }
 
-export const baseUrl: string = "http://localhost:8000/ipa"
-export const originWeb: string = "http://localhost:3000"
+export const baseUrl: string = "https://apianoninbox-production.up.railway.app/ipa"
+export const originWeb: string = "https://anoninbox-v2.vercel.app"
