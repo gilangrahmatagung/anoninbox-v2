@@ -42,11 +42,13 @@ export default function SendMessage({
     if (messageData.message_title && messageData.message_title.length > 50) {
       setSuccMsg("")
       setErrMsg("Judul tidak boleh lebih dari 50 karakter.");
+      return
     }
 
     if (messageData.message_body.length>1000){
       setSuccMsg("")
       setErrMsg("Pesan tidak boleh lebih dari 1000 karakter.")
+      return
     }
 
     try {
