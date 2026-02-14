@@ -7,6 +7,7 @@ import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
 import Button from "@/components/ui/Button";
 import MessageAlert from "@/components/ui/MessageAlert";
+import { ErrMsg } from "@/lib/CommonMessage";
 
 export default function StartThread({
   box_id,
@@ -36,22 +37,40 @@ export default function StartThread({
       message_body: body,
     };
 
+    // sedikit validasi
     if (title === "") delete messageData.message_title;
     if (email === "") delete messageData.non_user_email;
 
-    await trigger(messageData);
-
-    if (error){
+    if (messageData.message_title && messageData.message_title.length > 50) {
       setSuccMsg("")
-      setErrMsg(error.message)
+      setErrMsg("Judul tidak boleh lebih dari 50 karakter.");
+    }
 
-    } else {
-      setTitle("");
-      setBody("");
-      setEmail("");
+    if (messageData.message_body.length>1000){
+      setSuccMsg("")
+      setErrMsg("Pesan tidak boleh lebih dari 1000 karakter.")
+    }
 
-      setErrMsg("")
-      setSuccMsg("Pesan telah dikirim.");
+    try{
+      await trigger(messageData);
+
+      if (error){
+        setSuccMsg("")
+        setErrMsg(error.message)
+
+      } else {
+        setTitle("");
+        setBody("");
+        setEmail("");
+
+        setErrMsg("")
+        setSuccMsg("Pesan telah dikirim.");
+      }
+    }
+
+    catch{
+      setSuccMsg("")
+      setErrMsg(ErrMsg.ClientError)
     }
   }
 

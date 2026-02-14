@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/Textarea";
 import MessageAlert from "@/components/ui/MessageAlert";
+import { ErrMsg } from "@/lib/CommonMessage";
 
 export default function SendMessage({
   box_id,
@@ -38,6 +39,16 @@ export default function SendMessage({
 
     if (title === "") delete messageData.message_title;
 
+    if (messageData.message_title && messageData.message_title.length > 50) {
+      setSuccMsg("")
+      setErrMsg("Judul tidak boleh lebih dari 50 karakter.");
+    }
+
+    if (messageData.message_body.length>1000){
+      setSuccMsg("")
+      setErrMsg("Pesan tidak boleh lebih dari 1000 karakter.")
+    }
+
     try {
       await trigger(messageData);
       await mutate(`/api/boxes/${box_id}/threads-with-sender/`);
@@ -55,7 +66,10 @@ export default function SendMessage({
         setErrMsg("")
         setSuccMsg("Pesan telah dikirim.");
       }
-    } catch {}
+    } catch {
+      setSuccMsg("")
+      setErrMsg(ErrMsg.ClientError)
+    }
   }
 
   return (
