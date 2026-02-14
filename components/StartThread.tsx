@@ -18,7 +18,9 @@ export default function StartThread({
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [email, setEmail] = useState("");
+
   const [succMsg, setSuccMsg] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
   const { trigger, isMutating, error } = useSWRMutation(
     `/api/boxes/${box_id}/threads/`,
@@ -39,10 +41,18 @@ export default function StartThread({
 
     await trigger(messageData);
 
-    setTitle("");
-    setBody("");
-    setEmail("");
-    setSuccMsg("Pesan telah dikirim.");
+    if (error){
+      setSuccMsg("")
+      setErrMsg(error.message)
+
+    } else {
+      setTitle("");
+      setBody("");
+      setEmail("");
+
+      setErrMsg("")
+      setSuccMsg("Pesan telah dikirim.");
+    }
   }
 
   return (
@@ -84,8 +94,8 @@ export default function StartThread({
       {succMsg && (
         <MessageAlert variant="success">{succMsg}</MessageAlert>
       )}
-      {error && (
-        <MessageAlert variant="error">{error.message}</MessageAlert>
+      {errMsg && (
+        <MessageAlert variant="error">{errMsg}</MessageAlert>
       )}
     </form>
   );

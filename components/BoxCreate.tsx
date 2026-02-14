@@ -12,7 +12,9 @@ export default function BoxCreate() {
   const [isVisible, setIsVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  
   const [succMsg, setSuccMsg] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
   const { trigger, isMutating, error } = useSWRMutation(
     "/api/boxes/",
@@ -29,9 +31,18 @@ export default function BoxCreate() {
 
     await trigger(boxData);
 
-    setTitle("");
-    setDescription("");
-    setSuccMsg("Kotak baru telah dibuat.");
+    if (error){
+      setSuccMsg("")
+      setErrMsg(error.message)
+    }
+
+    else{
+      setTitle("");
+      setDescription("");
+
+      setErrMsg("")
+      setSuccMsg("Kotak baru telah dibuat.");
+    }
   }
 
   return (
@@ -74,8 +85,8 @@ export default function BoxCreate() {
           {succMsg && (
             <MessageAlert variant="success">{succMsg}</MessageAlert>
           )}
-          {error && (
-            <MessageAlert variant="error">{error.message}</MessageAlert>
+          {errMsg && (
+            <MessageAlert variant="error">{errMsg}</MessageAlert>
           )}
         </form>
       </Activity>

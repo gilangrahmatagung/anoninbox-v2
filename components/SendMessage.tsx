@@ -19,7 +19,9 @@ export default function SendMessage({
   const [isVisible, setIsVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+
   const [succMsg, setSuccMsg] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
   const { trigger, isMutating, error } = useSWRMutation(
     `/api/boxes/${box_id}/threads/${thread_id}/`,
@@ -40,9 +42,19 @@ export default function SendMessage({
       await trigger(messageData);
       await mutate(`/api/boxes/${box_id}/threads-with-sender/`);
       await mutate(`/api/boxes/${box_id}/threads/`);
-      setTitle("");
-      setBody("");
-      setSuccMsg("Pesan telah dikirim.");
+
+      if (error) {
+        setSuccMsg("")
+        setErrMsg(error.message)
+      }
+
+      else{
+        setTitle("");
+        setBody("");
+
+        setErrMsg("")
+        setSuccMsg("Pesan telah dikirim.");
+      }
     } catch {}
   }
 
@@ -81,8 +93,8 @@ export default function SendMessage({
             {isMutating ? "Menyimpan..." : "Kirim Pesan"}
           </Button>
 
-          {error && (
-            <MessageAlert variant="error">{error.message}</MessageAlert>
+          {errMsg && (
+            <MessageAlert variant="error">{errMsg}</MessageAlert>
           )}
           {succMsg && (
             <MessageAlert variant="success">{succMsg}</MessageAlert>
