@@ -55,10 +55,12 @@ export default function Home() {
         </h3>
         <p className="text-neutral-300">Gampang banget kok,</p>
         <ol className="list-decimal list-inside space-y-2 text-neutral-300 leading-relaxed">
+          <li>Lakukan pendaftaran akun lalu login.</li>
           <li>Buat kotak pesan baru dengan deskripsi sesuai tujuan.</li>
           <li>Bagikan tautan kotak pesan ke orang-orang yg kamu ingin dapat saran dari mereka.</li>
           <li>Orang yg mendapat tautan bisa menulis pesan dengan bebas tanpa takut ketahuan identitas asli mereka.</li>
-          <li>Tunggu pesan masuk, akan ada notifikasi via email. Kamu juga bisa lanjut berbalas pesan secara anonim.</li>
+          <li>Tunggu pesan masuk. Akan ada notifikasi via email saat ada pesan baru yang masuk.</li>
+          <li>Kamu juga bisa lanjut berbalas pesan dengan pemberi pesan tetap anonim.</li>
         </ol>
       </section>
 
